@@ -1,0 +1,31 @@
+{
+  "version": "1.0.1",
+  "private": true,
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "@types/node": "^10.5.2",
+    "aws-serverless-express": "^3.2.0",
+    "express": "^4.16.3",
+    "hamljs": "^0.6.2",
+    "jquery": "^3.3.1",
+    "nuxt": "latest",
+    "nuxt-class-component": "^1.1.3",
+    "serverless-apigw-binary": "^0.4.4",
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "vue-property-decorator": "^6.0.0",
+    "vuetify": "^1.1.4",
+    "vuex-class": "^0.3.0",
+    "vue-cookies": "latest"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "deploy": "sls deploy"
+  },
+  "devDependencies": {
+    "serverless-domain-manager": "^2.6.0"
+  }
+}

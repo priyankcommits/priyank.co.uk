@@ -1,0 +1,5 @@
+production:
+  domainName: "priyank.co.uk"
+
+production-www:
+  domainName: "www.priyank.co.uk"

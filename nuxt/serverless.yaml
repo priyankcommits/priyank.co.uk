@@ -1,0 +1,34 @@
+service: priyankcoukfrontend
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage, self:provider.stage}
+  region: us-east-1
+  endpointType: EDGE
+
+functions:
+  nuxt:
+    handler: handler.nuxt
+    events:
+      - http: ANY {proxy+}
+      - http: ANY /
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-domain-manager
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  perEnv: ${file(serverless-config-environment.yaml):${self:custom.stage}}
+  customDomain:
+    domainName: "${self:custom.perEnv.domainName}"
+    basePath: ''
+    stage: ${opt:stage, self:provider.stage}
+    certificateName: '*.priyank.co.uk'
+    createRoute53Record: true
+    endpointType: regional
+  bucket: priyank.co.uk
+  apigwBinary:
+    types:
+      - '*/*'

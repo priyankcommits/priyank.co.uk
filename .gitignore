@@ -1,0 +1,10 @@
+.DS_Store
+nuxt/app/.nuxt/
+*.pyc
+env.sh
+nuxt/typings
+node_modules
+nuxt/node_modules
+nuxt/.nuxt
+nuxt/.serverless
+.vscode
