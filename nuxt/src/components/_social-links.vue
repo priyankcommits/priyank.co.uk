@@ -9,6 +9,9 @@ export default class extends Vue {
 <template lang="haml">
 %div
   %div.hidden-xs-only
+    %v-btn.v-btn--outline.v-btn--outline.v-btn--round.custom-text-first{"href": "https://pyfiddle.io", "target": "_blank"}
+      = 'Pyfiddle '
+      %v-icon.ml-2.custom-text-first fa-external-link
     %v-btn{"icon": true}
       %a.white--text{"href": 'mailto:pulumati.priyank@gmail.com', "target": "_blank"}
         %v-icon.v-icon--medium.custom-text-first fa-envelope

@@ -94,9 +94,8 @@ export default class extends Vue {
   border-radius: 50%;
 }
 .profile-photo-toolbar {
-  width: 45px;
-  height: 45px;
+  width: 45px !important;
+  height: 45px !important;
   border-radius: 50%;
-  padding: 2px;
 }
 </style>

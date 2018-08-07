@@ -29,17 +29,17 @@ export const mutations = {
       }
     });
   },
-  commitUpvotePost(state, postId) {
+  commitUpvotePost(state, slug) {
     state.posts.forEach(element => {
-      if (element.node.id === postId) {
+      if (element.node.slug === slug) {
         element.node.likedClass = 'blue--text';
       }
     });
   },
-  commitUpvotePreviouslyLikedPosts(state, postIds) {
+  commitUpvotePreviouslyLikedPosts(state, slugs) {
     state.posts.forEach(element => {
-      postIds.forEach(postId => {
-        if (element.node.id == postId) {
+      slugs.forEach(slug => {
+        if (element.node.slug == slug) {
           element.node.likedClass = 'blue--text';
         }
       });
@@ -57,6 +57,14 @@ export const mutations = {
         }
       });
     }
+  },
+  commitShowFilteredPostsBySlug(state, slugName) {
+    state.filteredPosts = [];
+    state.posts.forEach(element => {
+      if (element.node.slug === slugName) {
+        state.filteredPosts.push(element);
+      }
+    });
   }
 };
 
@@ -66,7 +74,7 @@ export const actions = {
       query: `{
         allProfiles {edges { node { id, firstName, lastName }}}
         allArticles {edges { node { headline, text, link }}}
-        allPosts {edges { node { id, headline, content, image, likes, subheadline, kind }}}
+        allPosts {edges { node { id, headline, content, image, likes, subheadline, kind, slug }}}
       }`,
     });
     commit("setUsers", response.data.data.allProfiles.edges);

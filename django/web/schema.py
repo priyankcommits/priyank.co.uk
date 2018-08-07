@@ -1,4 +1,6 @@
 from web.models import Profile, Post, Article, Subscribers
+from web.utils import get_post_likes, post_like, create_subscriber
+
 import graphene
 from graphene import ObjectType, Node, Schema, InputObjectType, relay
 from graphene_django.fields import DjangoConnectionField
@@ -28,7 +30,7 @@ class ArticleNode(DjangoObjectType):
 
 
 class PostUpdateFields(InputObjectType):
-    id = graphene.String(required=True)
+    slug = graphene.String(required=True)
 
 
 class PostUpdate(relay.ClientIDMutation):
@@ -40,9 +42,9 @@ class PostUpdate(relay.ClientIDMutation):
     @classmethod
     def mutate_and_get_payload(cls, root, info, post):
         try:
-            post = Post.objects.get(id=from_global_id(post['id'])[1])
-            post.likes += 1
-            post.save()
+            post_slug = post['slug']
+            post = Post.objects.get(slug=post_slug)
+            post_like(post_slug, post.likes+1)
             return PostUpdate(udpate=post)
         except:
             return PostUpdate(update=None)
@@ -69,6 +71,7 @@ class SubscribersCreate(relay.ClientIDMutation):
     @classmethod
     def mutate_and_get_payload(cls, root, info, subscriber):
         try:
+            create_subscriber(subscriber['name'], subscriber['email'])
             subscriber = Subscribers.objects.get_or_create(
                 name=subscriber['name'], email=subscriber['email'])
             return SubscribersCreate(create=subscriber)
@@ -85,8 +88,20 @@ class Query(ObjectType):
     profile = Node.Field(ProfileNode)
     all_profiles = DjangoConnectionField(ProfileNode)
 
-    post = Node.Field(PostNode)
+    slug_post = graphene.Field(PostNode, slug=graphene.String())
     all_posts = DjangoConnectionField(PostNode)
+
+    def resolve_all_posts(self, info, **kwargs):
+        posts = Post.objects.all().order_by('-created')
+        post_likes = get_post_likes()
+        for post in posts:
+            post.likes = post_likes.get(post.slug, 0)
+            post.save()
+            print(post.likes)
+        return posts
+
+    def resolve_slug_post(self, info, **kwargs):
+        return Post.objects.get(slug=kwargs['slug'])
 
     article = Node.Field(ArticleNode)
     all_articles = DjangoConnectionField(ArticleNode)

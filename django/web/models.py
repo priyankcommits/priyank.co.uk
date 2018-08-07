@@ -28,6 +28,7 @@ class Post(models.Model):
     downvote_label = models.CharField(default='No', max_length=200)
     created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(default=datetime.now)
+    slug = models.SlugField(unique=False)
 
     def str(self):
         return self.headline

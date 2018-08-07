@@ -1,5 +1,5 @@
 <script lang="ts">
-import { apiUrl } from '../../globals';
+import { apiUrl } from '../../../globals';
 
 import axios from 'axios';
 import Vue from 'vue';
@@ -17,6 +17,7 @@ export default class extends Vue {
   public mounted() {
     const posts: any = VueCookies.get('posts') || '';
     this.$store.commit('commitUpvotePreviouslyLikedPosts', posts.split(","));
+    this.$store.commit('commitShowFilteredPostsBySlug', this.$route.params.id);
   }
   private upvote(postId: string) {
     axios.post(apiUrl, {
