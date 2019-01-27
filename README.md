@@ -12,3 +12,11 @@ Tech Stack:
 Django is API only
 Front End Server Rendering is handled by Nuxt
 Dont forget to export ENVIRONMENT as production before nuxt build
+
+Deploy:
+Export ENVIRONMENT variable to production first before nuxt build
+
+Must Use:
+Serverless Version: 1.29.0
+Nuxt Version: 1.42.0
+Webpack: 3.12.0

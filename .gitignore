@@ -6,5 +6,6 @@ nuxt/typings
 node_modules
 nuxt/node_modules
 nuxt/.nuxt
+nuxt/dist
 nuxt/.serverless
 .vscode

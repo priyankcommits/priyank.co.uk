@@ -96,8 +96,6 @@ class Query(ObjectType):
         post_likes = get_post_likes()
         for post in posts:
             post.likes = post_likes.get(post.slug, 0)
-            post.save()
-            print(post.likes)
         return posts
 
     def resolve_slug_post(self, info, **kwargs):
