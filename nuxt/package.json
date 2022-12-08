@@ -5,7 +5,7 @@
     "@nuxtjs/axios": "^5.3.1",
     "@types/node": "^10.5.2",
     "aws-serverless-express": "^3.2.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "hamljs": "^0.6.2",
     "jquery": "^3.3.1",
     "nuxt": "latest",
